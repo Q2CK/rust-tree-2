@@ -65,4 +65,6 @@ fn main() {
     root.borrow_mut().all(&mut (|x: &mut Node| {
         println!("{} {}", x.content.text, x.depth);
     }));
+
+    println!("{} {}", sub_sub_node_ref.borrow().content.text, sub_sub_node_ref.borrow().depth);
 }
