@@ -64,7 +64,6 @@ fn main() {
             }
         }
     }));
-
     root.borrow_mut().all(&mut (|x: &mut Node| {
         println!("{} {}", x.content.text, x.depth);
     }));
