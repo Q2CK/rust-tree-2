@@ -1,5 +1,4 @@
 use std::cell::RefCell;
-use std::ops::Deref;
 use std::rc::Rc;
 
 #[derive(PartialEq)]
@@ -52,13 +51,17 @@ fn main() {
 
     root.borrow_mut().all(&mut (|x: &mut Node| {
         x.depth = level;
-        if x.children.len() > 1 {
-            last_split_level = x.depth.clone();
-            level += 1;
-        } else if x.children.len() == 1 {
-            level += 1;
-        } else {
-            level = last_split_level;
+        match x.children.len() {
+            2.. => {
+                last_split_level = x.depth;
+                level += 1;
+            }
+            1 => {
+                level += 1;
+            }
+            _ => {
+                level = last_split_level + 1;
+            }
         }
     }));
 
